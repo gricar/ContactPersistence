@@ -16,13 +16,8 @@ internal sealed class ContactCreatedConsumer : RabbitMqConsumerBase<ContactCreat
     {
         using var scope = _serviceProvider.CreateScope();
         var repository = scope.ServiceProvider.GetRequiredService<IContactRepository>();
-        var contact = new Contact()
-        {
-            Name = contactEvent.Name,
-            DddCode = contactEvent.DDDCode,
-            Phone = contactEvent.Phone,
-            Email = contactEvent.Email,
-        };
+
+        var contact = Contact.Create(contactEvent.Name, contactEvent.DDDCode, contactEvent.Phone, contactEvent.Email);
 
         await repository.AddAsync(contact);
 
