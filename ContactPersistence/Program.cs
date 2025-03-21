@@ -1,5 +1,6 @@
 using ContactPersistence.Consumers;
 using ContactPersistence.Data;
+using ContactPersistence.Data.Extensions;
 using ContactPersistence.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using RabbitMQ.Client;
@@ -13,8 +14,8 @@ builder.Services.AddScoped<IContactRepository, ContactRepository>();
 
 var factory = new ConnectionFactory
 {
-    HostName = "localhost",
-    ClientProvidedName = "ContactPersistenceConsumer"
+    HostName = builder.Configuration["MessageBroker:Host"],
+    ClientProvidedName = builder.Configuration["MessageBroker:ConnectionName"]
 };
 
 var connection = factory.CreateConnection();
@@ -25,5 +26,7 @@ builder.Services.AddHostedService<ContactCreatedConsumer>();
 builder.Services.AddHostedService<ContactUpdatedConsumer>();
 
 var app = builder.Build();
+
+await app.InitializeDatabaseAsync();
 
 app.Run();
