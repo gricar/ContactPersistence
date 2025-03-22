@@ -9,4 +9,15 @@ public class ContactRepository(ApplicationDbContext dbContext) : IContactReposit
         await dbContext.Contacts.AddAsync(contact);
         await dbContext.SaveChangesAsync();
     }
+
+    public async Task DeleteAsync(Contact contact)
+    {
+        dbContext.Contacts.Remove(contact);
+        await dbContext.SaveChangesAsync();
+    }
+
+    public async Task<Contact?> GetByIdAsync(Guid id)
+    {
+        return await dbContext.Contacts.FindAsync(id);
+    }
 }

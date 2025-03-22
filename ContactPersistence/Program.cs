@@ -23,6 +23,7 @@ var channel = connection.CreateModel();
 
 builder.Services.AddSingleton(channel);
 builder.Services.AddHostedService<ContactCreatedConsumer>();
+builder.Services.AddHostedService<ContactDeletedConsumer>();
 builder.Services.AddHostedService<ContactUpdatedConsumer>();
 
 var app = builder.Build();
