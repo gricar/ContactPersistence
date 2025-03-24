@@ -7,4 +7,5 @@ public interface IContactRepository
     Task AddAsync(Contact contact);
     Task DeleteAsync(Contact contact);
     Task<Contact?> GetByIdAsync(Guid id);
+    Task UpdateAsync(Contact contact);
 }

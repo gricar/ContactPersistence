@@ -1,8 +1,8 @@
 ﻿namespace ContactPersistence.Events;
 
 internal sealed record ContactUpdatedEvent(
-    Guid Id,
+    Guid ContactId,
     string Name,
     int DDDCode,
     string Phone,
-    string? Email);
+    string? Email) : IntegrationEvent;

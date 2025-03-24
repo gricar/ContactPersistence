@@ -1,4 +1,5 @@
 ﻿using ContactPersistence.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ContactPersistence.Data.Repositories;
 
@@ -19,5 +20,11 @@ public class ContactRepository(ApplicationDbContext dbContext) : IContactReposit
     public async Task<Contact?> GetByIdAsync(Guid id)
     {
         return await dbContext.Contacts.FindAsync(id);
+    }
+
+    public async Task UpdateAsync(Contact contact)
+    {
+        dbContext.Entry(contact).State = EntityState.Modified;
+        await dbContext.SaveChangesAsync();
     }
 }
