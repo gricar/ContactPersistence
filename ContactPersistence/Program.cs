@@ -14,7 +14,7 @@ builder.Services.AddScoped<IContactRepository, ContactRepository>();
 
 var factory = new ConnectionFactory
 {
-    HostName = builder.Configuration["MessageBroker:Host"],
+    Uri = new Uri(builder.Configuration.GetConnectionString("RabbitMq")!),
     ClientProvidedName = builder.Configuration["MessageBroker:ConnectionName"]
 };
 
