@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: persistence-contact-svc
+  labels:
+    app: contact-api
+spec:
+  type: ClusterIP
+  selector:
+    app: contact-persistence
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
